@@ -30,7 +30,7 @@ opt <- parse_args(OptionParser(option_list=option_list))
 pdf(opt$outfile)
 Sys.setlocale("LC_TIME", "C")
 
-excluded_ips = c("86.242.190.96")
+excluded_ips = c()
 
 df <- read_delim(
   opt$file,
