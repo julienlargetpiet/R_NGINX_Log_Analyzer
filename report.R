@@ -18,6 +18,8 @@ option_list <- list(
               help="last days analysis time", metavar="END"),
   make_option(c("-p", "--pages"), type="character", default=".",
               help="pages", metavar="PAGES"),
+  make_option(c("-o", "--outfile"), type="character", default="out.pdf",
+              help="outfile", metavar="OUTFILE"),
   make_option(c("-i", "--interval"), type="character", default="h",
               help="interval time: h (hour), d (day), w (week), m (month), y (year)", metavar="INTERVAL")
 )
@@ -25,7 +27,7 @@ option_list <- list(
 opt <- parse_args(OptionParser(option_list=option_list))
 
 
-pdf("out.pdf")
+pdf(opt$outfile)
 Sys.setlocale("LC_TIME", "C")
 
 excluded_ips = c("86.242.190.96")
@@ -79,7 +81,6 @@ df$date <- floor_date(df$date, unit = interval)
 
 df$target_group <- df$target
 for (ptrn in patterns) { 
-    cat(ptrn, "\n")
     df$target_group <- ifelse(grepl(ptrn, df$target_group),
                           ptrn,
                           df$target_group)
