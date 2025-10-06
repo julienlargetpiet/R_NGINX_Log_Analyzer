@@ -45,6 +45,22 @@ df <- read_delim(
   )
 )
 
+# We filter bots here
+
+bot_keywords <- c(
+  "bot","spider","crawler","curl","wget","python","scrapy",
+  "ahrefs","ahrefsbot","semrush","mj12","dotbot",
+  "googlebot","bingbot","yandex","uptime","pingdom","monitor",
+  "facebookexternalhit","slurp","baiduspider"
+)
+
+bot_pat <- paste(bot_keywords, collapse = "|")
+
+df <- df %>%
+  filter(!grepl(bot_pat, .[[10]]))
+
+########
+
 df <- df[, c(1, 4, 6)]
 names(df) <- c("ip",
                   "date",
