@@ -24,6 +24,7 @@ It supports filtering by date, target pages, and time intervals (hourly, daily, 
     <tr><td><code>-e, --ending</code></td><td>End of analysis window (format: <code>%d/%b/%Y:%H</code>)</td><td><code>01/Sep/2970:00</code></td></tr>
     <tr><td><code>-l, --last</code></td><td>Analyze only the last N time units (e.g., days, hours, etc.)</td><td><code>0</code> (disabled)</td></tr>
     <tr><td><code>-p, --pages</code></td><td>Target URL patterns (use <code>--</code> as separator between regex patterns)</td><td><code>.</code> (all pages)</td></tr>
+    <tr><td><code>-m, --most</code></td><td>Show the top 5 most visited pages as a pie chart</td><td><code>.</code>FALSE</td></tr>
     <tr><td><code>-o, --outfile</code></td><td>Output PDF file name</td><td><code>out.pdf</code></td></tr>
     <tr><td><code>-i, --interval</code></td><td>Time aggregation interval:  
         <code>h</code> (hour), <code>d</code> (day), <code>w</code> (week),  
@@ -54,6 +55,7 @@ It supports filtering by date, target pages, and time intervals (hourly, daily, 
 <p>The resulting PDF (<code>out.pdf</code> by default) contains a color-coded time series plot showing how traffic varies per target URL over the selected time period.</p>
 
 <img src="example.jpg" height="200" width="350" alt="example.jpg">
+<img src="example2.jpg" height="200" width="350" alt="example.jpg">
 
 <h2>💡 Example Usage</h2>
 
