@@ -46,6 +46,8 @@ It supports filtering by date, target pages, and time intervals (hourly, daily, 
 <h2>📈 Output</h2>
 <p>The resulting PDF (<code>out.pdf</code> by default) contains a color-coded time series plot showing how traffic varies per target URL over the selected time period.</p>
 
+<img src="example.jpg" height="200" width="350" alt="example.jpg">
+
 <h2>💡 Example Usage</h2>
 
 <pre><code>logs_analyze ➤ Rscript convert.R \
