@@ -37,6 +37,13 @@ It supports filtering by date, target pages, and time intervals (hourly, daily, 
   <li>Load and clean log data using <code>readr::read_delim()</code>.</li>
   <li>Filter out unwanted IPs and restrict the time window.</li>
   <li>Extract and normalize URL paths from log entries.</li>
+  <li>Match target URLs using <strong>regular expressions (regex)</strong>:
+    <ul>
+      <li>Each expression in <code>--pages</code> is a valid regex pattern.</li>
+      <li>Multiple expressions can be combined using <code>--</code> as a separator.</li>
+      <li>Example: <code>'^/$--^/all_posts/.*$--^/post_search/0$'</code> will match any of those three patterns.</li>
+    </ul>
+  </li>
   <li>Group by <span class="highlight">date</span> and <span class="highlight">target page</span>.</li>
   <li>Aggregate hit counts over the selected interval (hour/day/week/month/year).</li>
   <li>Plot the results using <code>ggplot2</code> with line and point charts.</li>
