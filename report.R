@@ -20,6 +20,8 @@ option_list <- list(
               help="pages", metavar="PAGES"),
   make_option(c("-o", "--outfile"), type="character", default="out.pdf",
               help="outfile", metavar="OUTFILE"),
+  make_option(c("-m", "--most"), type="logical", default=FALSE,
+              help="most visited webpages", metavar="MOST"),
   make_option(c("-i", "--interval"), type="character", default="h",
               help="interval time: h (hour), d (day), w (week), m (month), y (year)", metavar="INTERVAL")
 )
@@ -30,7 +32,7 @@ opt <- parse_args(OptionParser(option_list=option_list))
 pdf(opt$outfile)
 Sys.setlocale("LC_TIME", "C")
 
-excluded_ips = c()
+excluded_ips = c("86.242.190.96")
 
 df <- read_delim(
   opt$file,
@@ -88,6 +90,29 @@ df$target <- mapply(function(x) {
                             posvec <- gregexpr(" ", x)[[1]][1:2]
                             substring(x, posvec[1] + 1, posvec[2] - 1)}, 
                             df$target)
+
+if (opt$most) {
+  
+  agg <- df %>%
+    group_by(target) %>%
+    summarise(hits = n(), .groups = "drop") %>%
+    arrange(desc(hits)) %>%
+    head(5)
+
+  ggplot(agg, aes(x = "", y = hits, fill = target)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  theme_void() +
+  labs(
+    title = "Most visited targets",
+    fill = "Target Group"
+  ) +
+  geom_text(
+    aes(label = paste0(round(100 * hits / sum(hits), 1), "%")),
+    position = position_stack(vjust = 0.5)
+  )
+}
+
 patterns <- strsplit(opt$pages, "--")[[1]]
 df <- df[Reduce(`|`, lapply(patterns, function(p) grepl(p, df$target))), ]
 
