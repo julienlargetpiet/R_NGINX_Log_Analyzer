@@ -83,7 +83,7 @@ end <- as.POSIXct(opt$ending, format="%d/%b/%Y:%H")
 if (opt$last == 0) {
     df <- df[df$date >= start & df$date <= end, ]
 } else {
-    df <- df[df$date >= (max(df$date) - last) & df$date <= end, ]
+    df <- df[df$date >= (max(df$date) - last), ]
 }
 
 df$target <- mapply(function(x) { 
@@ -99,16 +99,20 @@ if (opt$most) {
     arrange(desc(hits)) %>%
     head(5)
 
+  total_hits <- sum(agg$hits)
+  
   ggplot(agg, aes(x = "", y = hits, fill = target)) +
   geom_bar(stat = "identity", width = 1) +
   coord_polar(theta = "y") +
   theme_void() +
   labs(
-    title = "Most visited targets",
+    title = paste("Most visited targets, a total of", 
+                  total_hits, 
+                  "total hits!"),
     fill = "Target Group"
   ) +
   geom_text(
-    aes(label = paste0(round(100 * hits / sum(hits), 1), "%")),
+    aes(label = as.character(hits)), #label = paste0(round(100 * hits / sum(hits), 1), "%")),
     position = position_stack(vjust = 0.5)
   )
 }
